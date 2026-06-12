@@ -5,6 +5,7 @@
 **极简、现代、即开即用的跨平台桌面大语言模型（LLM）对话与调试客户端**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Latest Release](https://img.shields.io/github/v/release/tiancj0109/simple-llm-chat?logo=github&color=green)](https://github.com/tiancj0109/simple-llm-chat/releases)
 [![Electron](https://img.shields.io/badge/Electron-v22.3.27-blueviolet?logo=electron&logoColor=white)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-v18-61dafb?logo=react&logoColor=white)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-v5-646cff?logo=vite&logoColor=white)](https://vite.dev/)
