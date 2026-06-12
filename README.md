@@ -1,77 +1,95 @@
-# Simple LLM Chat
+<div align="center">
 
-一个极简、现代、即开即用的跨平台大语言模型（LLM）桌面聊天与调试客户端。
+# 🤖 Simple LLM Chat
+
+**极简、现代、即开即用的跨平台桌面大语言模型（LLM）对话与调试客户端**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Electron](https://img.shields.io/badge/Electron-v22.3.27-blueviolet?logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![React](https://img.shields.io/badge/React-v18-61dafb?logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-v5-646cff?logo=vite&logoColor=white)](https://vite.dev/)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078d7?logo=windows&logoColor=white)](https://www.microsoft.com/windows)
 
 [English](./README_EN.md) | 简体中文
 
----
-
-## ✨ 核心特性
-
-- 🎨 **极简现代设计**：采用暗黑科技风美学，支持毛玻璃质感、微动画切换，提供极致舒适的视觉体验。
-- 🤖 **多厂商 API 兼容**：原生支持 **OpenAI 兼容格式**（如 OpenAI、DeepSeek、Ollama、LocalAI）及 **Anthropic Claude 格式**。
-- 🔍 **高保真网络诊断 (API 测试器)**：无需打开外部抓包工具，测试面板中可直接实时观测：
-  - 发送的实际明文请求头 (Headers) 与请求体 (Body)
-  - 握手响应状态码及完整的服务器响应头 (Response Headers)
-  - 原始数据流分块 (Raw SSE Stream Chunks)
-  - 解析后的纯文本内容
-- ⚙️ **精细化超参数开关**：随机性 (Temperature)、最大 Token 数 (Max Tokens)、流式传输 (Stream) 均配备独立物理开关，支持在不兼容特定参数的自定义模型上关闭发送该参数，防止报错。
-- 🧠 **智能上下文控制**：支持三种历史上下文裁剪模式，拒绝 Token 隐形膨胀：
-  - **不进行限制**：发送全部历史记录。
-  - **按对话轮数限制**：自定义只保留最近 $N$ 轮会话，超出部分自动裁剪。
-  - **按 Token 估算限制**：内置轻量高效的中英文混合 Token 估算算法（汉字按 1.0 Token，英文单词按 0.75 Token 计算），超出设定上限自动从老消息开始截断，避免超出上下文上限。
-- 🛡️ **原生网络栈支持**：基于 Electron Chromium 原生网络层发送请求，自动使用系统全局代理、SSL 根证书，极大缓解自签证书或代理拦截导致的 SSL 错误。
+</div>
 
 ---
 
-## 📸 界面预览
+## 🌟 核心特性
 
-*支持 Win7 64位及更高版本的便携绿色单文件 `.exe`。*
+*   🎨 **极致视觉美学 (Premium UI)**
+    *   采用精美的**暗黑毛玻璃 (Glassmorphism) 风格**，主色调选用和谐的 HSL 渐变。
+    -   流畅的淡入淡出、伸缩微动画，让桌面操作充满呼吸感，告别死板。
 
----
+*   🔌 **主流大模型原生兼容 (Universal API)**
+    -   **OpenAI 格式**：完美兼容 DeepSeek-Chat, Ollama 常用模型, LocalAI, OpenAI 等所有标准 API 格式。
+    -   **Anthropic 格式**：支持 Claude 3.5 Sonnet / Opus 等专属协议格式。
 
-## 🛠️ 安装与开发
+*   🩺 **内置出站网络诊断 (HTTP Capturer & Debugger)**
+    -   **请求溯源**：在测试面板直接展示实际发送的明文请求头 (Headers) 与请求体 (Body)，防止“黑盒”请求。
+    -   **握手响应**：完整呈现 HTTP 状态码、状态描述，以及服务器返回的所有 Headers 信息。
+    -   **流式分块**：支持原始数据流 (Raw SSE Stream Chunks) 与解析内容双重同步监控。
 
-本项目基于 **Vite + React + Electron** 架构构建。
+*   ⚡ **独立超参精细控制 (Hyperparameter Toggles)**
+    -   **流式传输 (Stream)** / **随机性 (Temperature)** / **最大 Token (Max Tokens)** 均带独立物理开关。
+    -   **参数过滤**：当关闭某开关时，请求体中将**完全不携带**对应字段，避免在不支持该字段的自建/微调模型上报错。
 
-### 1. 克隆与安装依赖
-
-```bash
-# 安装依赖
-npm install
-```
-
-### 2. 启动开发环境
-
-```bash
-npm run dev
-```
-
-### 3. 生产环境打包 (生成 Windows 便携单文件)
-
-```bash
-npm run package
-```
-*编译完成后，可在 `dist-electron/` 文件夹下找到 `SimpleLLMChat-1.0.0-Portable.exe`。*
+*   🧠 **智能上下文裁剪 (Context Management Mode)**
+    -   `全部历史`：维持全会话记忆，适合连贯深度对话。
+    -   `轮数裁剪`：自定义保留最近 $N$ 轮会话，滚动式淘汰陈旧记忆，降低 Token 隐形膨胀。
+    -   `Token 估算裁剪`：内置双语 Token 估算算法（汉字按 1.0 Token，英文单词按 0.75 Token 计算），接近上限时自动从旧消息开始剔除。
 
 ---
 
-## 📖 上下文管理算法说明
+## 🛠️ 技术栈与架构
 
-为了保证在没有 Python 等庞大分词依赖的情况下获得精准的 Token 预测，客户端内部集成了一套混合文本估算方案：
+*   **前端框架**：`React 18` + `Vite` (构建高速响应单页应用)
+*   **客户端容器**：`Electron` (隔离沙箱，打包 Win7/Win10/Win11 绿色客户端)
+*   **通信层**：`IPC (Inter-Process Communication)` 安全双向信道
+*   **网络通信**：基于 Chromium Native 网络栈，完美支持系统代理及 SSL 自签名证书。
+
+---
+
+## 📖 上下文估算裁剪算法
+
+本项目在前端内置了高效的中英双语混合估算逻辑，无需加载分词大包：
+
 ```javascript
 function estimateTokens(text) {
   if (!text) return 0;
-  // 匹配所有汉字字符，按 1.0 Token/字计算
+  // 1. 汉字按 1.0 Token 计算
   const chineseChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
-  // 匹配所有非汉字单词，按 0.75 Token/单词计算
+  // 2. 英文单词按 0.75 Token 计算
   const englishWords = text.replace(/[\u4e00-\u9fa5]/g, '').split(/\s+/).filter(Boolean).length;
-  return Math.ceil(chineseChars * 1.0 + englishWords * 0.75) + 4; // 包含 4 Token 的角色元数据开销
+  return Math.ceil(chineseChars * 1.0 + englishWords * 0.75) + 4; // 加 4 个元数据 Token 开销
 }
 ```
 
 ---
 
-## 📄 开源协议
+## 🚀 快速开始
 
-本项目采用 [MIT License](./LICENSE) 协议开源。
+### 1. 开发环境运行
+
+```bash
+# 克隆项目并进入文件夹
+# 安装依赖
+npm install
+
+# 运行 Vite 热重载及 Electron 窗口
+npm run dev
+```
+
+### 2. 生成绿色便携包 (.exe)
+
+```bash
+npm run package
+```
+编译生成的 `.exe` 文件将位于：`dist-electron/MinimalistLLMChat-1.0.0-Portable.exe`。
+
+---
+
+## 📄 开源许可证
+
+本项目基于 [MIT License](./LICENSE) 协议发布，可自由修改与分发。
