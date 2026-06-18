@@ -1,6 +1,6 @@
 {
   "name": "minimalist-llm-chat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A minimalist, highly configurable LLM chat client supporting Windows 7 64-bit",
   "main": "main.js",
   "scripts": {
